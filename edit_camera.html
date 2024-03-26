@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Camera</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS styles */
+        body {
+            background-color: white;
+            padding: 20px;
+        }
+        h1 {
+            color: #007BFF;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            background-color: #dff8bf;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        label {
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .camera-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .camera-list li {
+            border: 1px solid #E9ECEF;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Camera</h1>
+
+    <form method="POST" action="{{ url_for('edit_camera', camera_id=camera.camera_id) }}">
+        <label for="camera_url">URL:</label>
+        <input type="text" name="camera_url" value="{{ camera.camera_url }}" required><br><br>
+
+        <label for="min_angle">Min Angle:</label>
+        <input type="number" name="min_angle" value="{{ camera.min_angle }}" required><br><br>
+
+        <label for="max_angle">Max Angle:</label>
+        <input type="number" name="max_angle" value="{{ camera.max_angle }}" required><br><br>
+
+        <label for="view">View:</label>
+        <select name="view" required>
+            <option value="front-view" {% if camera.view == 'front-view' %} selected {% endif %}>Front View</option>
+            <option value="side-view" {% if camera.view == 'side-view' %} selected {% endif %}>Side View</option>
+            <option value="back-view" {% if camera.view == 'back-view' %} selected {% endif %}>Back View</option>
+        </select><br><br>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>

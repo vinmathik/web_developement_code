@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Camera View</title>
+    <style>
+        .video {
+            display: block;
+            margin: auto; /* Set margin to auto to center the video horizontally */
+            object-fit: cover;
+            width: 70%; /* Set width to 50% */
+            height: 85%; /* Set height to 70% */
+            position: fixed;
+            top: 50%; /* Adjust top position to center vertically */
+            left: 50%; /* Adjust left position to center horizontally */
+            transform: translate(-50%, -50%); /* Use transform to center the video */
+        }
+    </style>
+</head>
+<body>
+    
+    {% if error_message %}
+    <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+    
+    <img src="{{ url_for('video_feed', camera_id=camera_id) }}" class="video" autoplay controls></video>
+
+
+    <br>
+   
+    <a href="{{ url_for('index') }}">Back to Camera List</a>
+</body>
+</html>

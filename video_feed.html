@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multi-Camera Streaming</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add custom CSS for the camera feeds */
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+            font-family: Arial, sans-serif; /* Use Arial font with fallback to sans-serif */
+            padding-top: 20px; /* Add some padding to the top */
+        }
+
+        .camera-container {
+            height: 250px; /* Set a fixed height for the camera container */
+            overflow: hidden; /* Hide overflow if the image is larger */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+        }
+
+        .camera-feed {
+            width: 100%; /* Set the desired width for the camera feed */
+            height: auto; /* Maintain aspect ratio */
+            max-width: 100%; /* Ensure the image doesn't exceed its container */
+        }
+
+        /* CSS for the error message */
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px; /* Add some margin at the top */
+        }
+
+        /* Style for buttons */
+        .btn {
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d; /* Dark gray */
+            border-color: #6c757d;
+            color: #fff; /* White text */
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Darker gray on hover */
+            border-color: #5a6268;
+        }
+
+        .btn-warning {
+            background-color: #ffc107; /* Yellow */
+            border-color: #ffc107;
+            color: #212529; /* Dark text */
+        }
+
+        .btn-warning:hover {
+            background-color: #ffae00; /* Darker yellow on hover */
+            border-color: #ffae00;
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Blue */
+            border-color: #007bff;
+            color: #fff; /* White text */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            border-color: #0056b3;
+        }
+
+        /* Style for alerts */
+        .alert {
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .alert-success {
+            background-color: #d4edda; /* Light green */
+            border-color: #c3e6cb;
+            color: #155724; /* Dark green text */
+        }
+
+        .alert-danger {
+            background-color: #f8d7da; /* Light red */
+            border-color: #f5c6cb;
+            color: #721c24; /* Dark red text */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5" style="color: #007bff; font-size: 36px; font-weight: bold;">Streaming All Cameras</h1>
+        
+        <div class="row">
+            {% for camera_id in range(num_cameras) %}
+                <div class="col-lg-6 mb-4">
+                    <div class="alert {% if not error_messages[camera_id] %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+                        <div class="camera-container mb-3">
+                            <img src="{{ url_for('video_feed', camera_id=camera_id) }}" class="img-fluid camera-feed" alt="Camera Feed">
+                        </div>
+                        {% if not error_messages[camera_id] %}
+                            <p class="mb-2" style="color: #343a40; font-size: 16px;">Min Angle: {{ camera_urls[camera_id][2] }}&deg; Max Angle: {{ camera_urls[camera_id][3] }}&deg; View: {{ camera_urls[camera_id][4] }}</p>
+                            <form action="{{ url_for('view_camera', camera_id=camera_id) }}" method="get" class="d-inline mr-2">
+                                <button type="submit" class="btn btn-secondary">View</button>
+                            </form>
+                            <!-- Add the crop button form here near the View button -->
+                            <form action="{{ url_for('start_crop', camera_id=camera_id) }}" method="get" class="d-inline mr-2">
+                                <button type="submit" class="btn btn-warning">Crop</button>
+                            </form>
+                            <form action="{{ url_for('refresh_camera', camera_id=camera_id) }}" method="get" class="d-inline">
+                                <button type="submit" class="btn btn-primary">Refresh</button>
+                            </form>
+                        {% else %}
+                            <p class="error-message mt-3" style="font-size: 14px;">{{ error_messages[camera_id] }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{{url_for('index')}}" class="mt-3" style="color: #007bff; font-size: 18px;">Back to Camera List</a>
+    </div>
+</body>
+</html>

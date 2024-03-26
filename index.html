@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Camera Video Stream</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            /* Set background image and adjust properties */
+            background-image: url('images/shooting_website_design.jpg');
+            background-color:pink;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Keeps the background fixed while scrolling */
+            background-size: cover; /* Cover the entire viewport */
+            /* You can adjust other properties like background-position if needed */
+        }
+        
+        .container {
+            /* Add additional styling to the container if desired */
+            padding: 20px;
+            /* Other styling properties */
+        }
+        
+        .btn-primary, .btn-success {
+            /* Customize button colors */
+            background-color: #007BFF;
+            border-color: #007BFF;
+        }
+        
+        .btn-primary:hover, .btn-success:hover {
+            /* Customize button hover colors */
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        
+        .jumbotron {
+            /* Add style to jumbotron for a prominent heading */
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+        }
+        
+        .jumbotron h3 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+        
+        .btn-lg {
+            /* Increase button size slightly */
+            padding: 15px 30px;
+            font-size: 1.2rem;
+        }
+        
+        .btn-group {
+            /* Style button group for better alignment */
+            display: flex;
+            justify-content: center;
+        }
+        
+        .btn-group .btn {
+            /* Add space between buttons */
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron text-center mt-5">
+            <h3 class="mb-4">Multiple Camera Video Stream</h3>
+            <div class="btn-group">
+                <a href="/add_camera" class="btn btn-primary btn-lg">Add Camera</a>
+                <a href="/streaming" class="btn btn-success btn-lg">Streaming</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
